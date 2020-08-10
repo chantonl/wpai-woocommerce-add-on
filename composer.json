@@ -1,0 +1,19 @@
+{
+    "name": "chantonl/wpai-woocommerce-add-on",
+    "description": "",
+    "keywords": [
+        "wordpress",
+        "plugin"
+    ],
+    "homepage": "https://github.com/chantonl/wpai-woocommerce-add-on",
+    "authors": [
+        {
+            "name": "Soflyy",
+            "homepage": "http://www.wpallimport.com/"
+        }
+    ],
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=5.6"
+    }
+}
