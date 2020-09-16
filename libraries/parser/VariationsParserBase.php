@@ -130,19 +130,26 @@ abstract class VariationsParserBase extends Parser {
     public function parseOptionType_4($option) {
         try {
             if ($this->getImport()->options[$option] != "") {
-                if ($this->getImport()->options[$option . '_use_parent']) {
+                switch ($option) {
+                    case 'variable_length':
+                    case 'variable_width':
+                    case 'variable_height':
+                        $use_parent_option = 'variable_dimensions_use_parent';
+                        break;
+                    default:
+                        $use_parent_option = $option . '_use_parent';
+                        break;
+                }
+                if ($this->getImport()->options[$use_parent_option]) {
                     $parsedData = XmlImportParser::factory($this->getXml(), $this->getCompleteParentXPath(), $this->getImport()->options[$option], $file)->parse(); $this->tmp_files[] = $file;
                     $this->countVariations && $this->data[$this->getOptionName($option)] = array_fill(0, $this->countVariations, $parsedData[$this->index]);
-                }
-                else {
+                } else {
                     $this->data[$this->getOptionName($option)] = XmlImportParser::factory($this->getXml(), $this->getCompleteVariationsXPath(), $this->getImport()->options[$option], $file)->parse(); $this->tmp_files[] = $file;
                 }
-            }
-            else{
+            } else {
                 $this->countVariations && $this->data[$this->getOptionName($option)] = array_fill(0, $this->countVariations, '');
             }
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->log('<b>ERROR:</b> ' . $e->getMessage());
         }
     }
